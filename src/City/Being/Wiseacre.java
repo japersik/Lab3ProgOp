@@ -42,10 +42,9 @@ public class Wiseacre extends Being {
             new House(this);
             myRes.setValue(myRes.getValue() - 5);
         } else {
-            EventMessage.message(this.name + " не смог построить дом, т.к. не имеит нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
+            EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
         }
     }
-
 }
 
 
