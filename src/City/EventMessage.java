@@ -1,6 +1,5 @@
 package City;
 
-import City.Being.Wiseacre;
 import City.place.Sculpture;
 
 public final class EventMessage {

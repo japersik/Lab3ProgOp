@@ -1,4 +1,4 @@
-package City.Being;
+package City.being;
 
 import City.EventMessage;
 import City.place.Locality;

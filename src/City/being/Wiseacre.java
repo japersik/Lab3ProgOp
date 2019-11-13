@@ -1,4 +1,4 @@
-package City.Being;
+package City.being;
 
 import City.EventMessage;
 import City.place.House;
@@ -22,19 +22,17 @@ public class Wiseacre extends Being {
     }
 
     public Worker CreatingWorkers(String nameOfWorker) {
-        EventMessage.message(this.name + " создаёт штоггота " + nameOfWorker);
-        return new Worker(this, nameOfWorker);
-//        myRes.setValue(myRes.getValue() - 5);
-//        if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 5) {
-//            EventMessage.message(this.name + " создаёт штоггота " + nameOfWorker);
-//            myRes.setValue(myRes.getValue() - 5);
-//            return new Worker(this, nameOfWorker);
-//
-//        } else {
-//            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
-//        return null;
-//        }
-//    }
+
+        if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 5) {
+            EventMessage.message(this.name + " создаёт штоггота " + nameOfWorker);
+            myRes.setValue(myRes.getValue() - 5);
+            return new Worker(this, nameOfWorker);
+
+        } else {
+            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
+            return null;
+        }
+
     }
 
     public void Building() {

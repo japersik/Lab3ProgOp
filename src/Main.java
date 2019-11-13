@@ -1,5 +1,5 @@
-import City.Being.Wiseacre;
-import City.Being.Worker;
+import City.being.Wiseacre;
+import City.being.Worker;
 import City.place.Mine;
 import City.place.Resources;
 import City.place.Town;
@@ -19,6 +19,7 @@ public class Main {
         st4.resourceTransfer(c2, c1, Resources.PROTOPLASM);
         st4.resourceTransfer(c2, c1, Resources.CELLMASS);
         st1.Building();
+        st4.takeResource(c1, Resources.PROTOPLASM, 5);
         Worker karl1 = st4.CreatingWorkers("Карл");
         Mine mine = new Mine("Каменеломня", Resources.STONE, 100, c1.getLocation());
         karl1.goMine(mine, c1);

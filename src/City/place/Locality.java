@@ -16,7 +16,7 @@ public abstract class Locality {
         this.type = type;
         this.location = location;
         this.name = name;
-        EventMessage.message("Заложено новое место типа " + this.type.data() + " с названием " + this.name + " в месте " + this.location);
+        EventMessage.message("Заложено новое место типа " + this.type.data() + " с названием " + this.name + " в локации " + this.location);
     }
 
 

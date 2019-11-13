@@ -1,9 +1,7 @@
 package City.place;
 
-import City.Being.*;
 import City.EventMessage;
-
-import java.awt.event.WindowFocusListener;
+import City.being.Wiseacre;
 
 public class House {
     private static int amount;

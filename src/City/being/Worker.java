@@ -1,7 +1,8 @@
-package City.Being;
+package City.being;
 
 import City.EventMessage;
-import City.place.*;
+import City.place.Mine;
+import City.place.Town;
 
 public class Worker extends Being {
 
