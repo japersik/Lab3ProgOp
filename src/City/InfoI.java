@@ -1,13 +1,8 @@
-package City.being;
-
-import City.place.Locality;
+package City;
 
 public interface InfoI {
     String getName();
-
     void setName(String name);
-
     Locality getLocality();
-
     void setLocality(Locality locality);
 }

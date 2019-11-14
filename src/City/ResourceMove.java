@@ -1,10 +1,7 @@
-package City.being;
-
-import City.place.Resources;
+package City;
 
 public interface ResourceMove {
     int getResValue();
-
     Resources getResType();
 
 }

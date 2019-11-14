@@ -1,8 +1,4 @@
-package City.being;
-
-import City.EventMessage;
-import City.place.Mine;
-import City.place.Town;
+package City;
 
 public class Worker extends Being {
 
@@ -29,7 +25,7 @@ public class Worker extends Being {
             }
             if (this.myRes.getValue() > 0) {
                 this.myRes.setType(mineLocality.getMineResType());
-                EventMessage.message("Штоггот " + this.name + " добыл " + this.myRes.getValue() + " единиц " + this.myRes.getType(), 0);
+                EventMessage.message("Штоггот " + this.name + " добыл " + this.myRes.getValue() + " единиц " + this.myRes.getType().getName(), 0);
             }
         } else {
             EventMessage.message("В инвентаре штоггота " + this.name + " есть " + this.myRes.getValue() + " единиц " + this.myRes.getType() + ", поэтому он не может работать в шахте", 0);

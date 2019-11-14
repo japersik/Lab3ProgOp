@@ -1,8 +1,7 @@
-package City.place;
-
-import City.EventMessage;
+package City;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Town extends Locality {
 
@@ -15,7 +14,8 @@ public class Town extends Locality {
     public Town(String name, String location) {
         super(name, TypeOfLocality.TOWN, location);
     }
-    public Town(String name, String location, int Stone,int Protoplasm, int CellMass) {
+
+    public Town(String name, String location, int Stone, int Protoplasm, int CellMass) {
         super(name, TypeOfLocality.TOWN, location);
         this.myStone.setValue(Stone);
         this.myProtoplasm.setValue(Protoplasm);
@@ -33,7 +33,7 @@ public class Town extends Locality {
 
 
     public int getResourceValue(Resources typeOfResource) {
-        int value =0;
+        int value = 0;
         switch (typeOfResource) {
             case STONE:
                 value = myStone.getValue();
@@ -44,21 +44,47 @@ public class Town extends Locality {
             case PROTOPLASM:
                 value = myProtoplasm.getValue();
                 break;
-        };
+        }
         return value;
     }
 
-    public void setResourceValue(Resources typeOfResource, int value){
+    public void setResourceValue(Resources typeOfResource, int value) {
         switch (typeOfResource) {
             case STONE:
-                 myStone.setValue(value);
-            break;
+                myStone.setValue(value);
+                break;
             case CELLMASS:
                 myCellMass.setValue(value);
-            break;
+                break;
             case PROTOPLASM:
                 myProtoplasm.setValue(value);
-            break;
+                break;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Town town = (Town) obj;
+        return getLocation().equals(town.getLocation()) &&
+                getName().equals(town.getName()) &&
+                getHouses().size() == town.getHouses().size();
+    }
+
+    @Override
+    public String toString() {
+        return "Класс: " + getClass().getName() +
+                "\nТип: " + type.getName() +
+                "\nНазвание: " + name +
+                "\nМестность: " + location +
+                "\nСклад ресурсов: " + myStone.getType().getName() + " " + myStone.getValue() + ", " + myProtoplasm.getType().getName() + " " + myProtoplasm.getValue() + ", " + myCellMass.getType().getName() + " " + myCellMass.getValue() +
+                "\nКоличество построенных домов: " + Houses.size() +
+                "\nhashCode: " + hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, location, type.getName());
     }
 }

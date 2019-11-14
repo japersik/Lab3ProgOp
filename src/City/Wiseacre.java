@@ -1,9 +1,4 @@
-package City.being;
-
-import City.EventMessage;
-import City.place.House;
-import City.place.Locality;
-import City.place.Resources;
+package City;
 
 public class Wiseacre extends Being {
 
@@ -29,7 +24,7 @@ public class Wiseacre extends Being {
             return new Worker(this, nameOfWorker);
 
         } else {
-            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
+            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
             return null;
         }
 
@@ -40,7 +35,7 @@ public class Wiseacre extends Being {
             new House(this);
             myRes.setValue(myRes.getValue() - 5);
         } else {
-            EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().data());
+            EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
         }
     }
 }

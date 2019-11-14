@@ -1,7 +1,6 @@
-package City.place;
+package City;
 
-import City.EventMessage;
-import City.being.Wiseacre;
+import java.util.Objects;
 
 public class House {
     private static int amount;
@@ -24,5 +23,25 @@ public class House {
 
     public int getNumber() {
         return number;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        House house = (House) obj;
+        return number == house.getNumber();
+    }
+
+    @Override
+    public String toString() {
+        return "Класс: " + getClass().getName() +
+                "\nПорядковый номер : " + number +
+                "\nhashCode: " + hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number);
     }
 }

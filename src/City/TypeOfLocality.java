@@ -1,13 +1,15 @@
-package City.place;
+package City;
 
 public enum TypeOfLocality {
     TOWN("Город"),
     MINE("Шахта");
-    private String  name;
+    private String name;
+
     TypeOfLocality(String name) {
         this.name = name;
     }
-    public String data() {
+
+    public String getName() {
         return name;
     }
 }

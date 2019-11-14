@@ -1,7 +1,5 @@
 package City;
 
-import City.place.Sculpture;
-
 public final class EventMessage {
 
     public static void message(String info, double s){

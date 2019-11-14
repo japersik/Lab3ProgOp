@@ -1,10 +1,6 @@
-package City.being;
+package City;
 
-import City.EventMessage;
-import City.place.Locality;
-import City.place.Resource;
-import City.place.Resources;
-import City.place.Town;
+import java.util.Objects;
 
 public abstract class Being implements InfoI, ResourceMove {
     protected Locality locality;
@@ -58,7 +54,7 @@ public abstract class Being implements InfoI, ResourceMove {
 
     public void resourceTransfer(Town fromTown, Town toTown, Resources typeOfResource, int value) {
         if (value > maxResourceValues) value = maxResourceValues;
-        EventMessage.message(this.name + " отправился на перенос " + value + " единиц ресурса " + typeOfResource.data() + " из " + fromTown.getName() + " в " + toTown.getName());
+        EventMessage.message(this.name + " отправился на перенос " + value + " единиц ресурса " + typeOfResource.getName() + " из " + fromTown.getName() + " в " + toTown.getName());
         takeResource(fromTown, typeOfResource, value);
         giveResource(toTown);
     }
@@ -67,7 +63,7 @@ public abstract class Being implements InfoI, ResourceMove {
         this.setLocality(townLocality);
         if (getResValue() != 0) {
             townLocality.setResourceValue(myRes.getType(), townLocality.getResourceValue(myRes.getType()) + myRes.getValue());
-            EventMessage.message(this.name + " отдёт " + myRes.getValue() + " единиц ресурса " + myRes.getType().data() + " в место " + townLocality.getName());
+            EventMessage.message(this.name + " отдёт " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName() + " в место " + townLocality.getName());
             myRes.setValue(0);
             myRes.setType(Resources.NONE);
         } else {
@@ -92,12 +88,36 @@ public abstract class Being implements InfoI, ResourceMove {
             }
             if (this.myRes.getValue() > 0) {
                 this.myRes.setType(typeOfResource);
-                EventMessage.message(this.name + " забрал " + this.myRes.getValue() + " единиц ресурса " + myRes.getType().data() + " в месте " + townLocality.getName(), 0);
+                EventMessage.message(this.name + " забрал " + this.myRes.getValue() + " единиц ресурса " + myRes.getType().getName() + " в месте " + townLocality.getName(), 0);
             } else {
                 EventMessage.message(this.name + " не смог забрать требуемые ресурсы в " + townLocality.getName() + ", так как они закончились", 0);
             }
         } else {
-            EventMessage.message(this.name + " имеет в инвентаре " + this.myRes.getValue() + " единиц ресурса " + this.myRes.getType().data() + ", поэтому он не может забрать ресурсы", 0);
+            EventMessage.message(this.name + " имеет в инвентаре " + this.myRes.getValue() + " единиц ресурса " + this.myRes.getType().getName() + ", поэтому он не может забрать ресурсы", 0);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Being being = (Being) obj;
+        return getLocality() == being.getLocality() &&
+                getName().equals(being.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Класс: " + getClass().getName() +
+                "\nИмя: " + name +
+                "\nМестоположение: " + locality.getName() +
+                "\nИнвентарь: " + myRes.getType().getName() + " " + myRes.getValue() +
+                "\nhashCode: " + hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, locality);
+    }
 }
+

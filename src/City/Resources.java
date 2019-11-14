@@ -1,4 +1,4 @@
-package City.place;
+package City;
 
 public enum Resources {
     STONE("Камень"),
@@ -9,7 +9,8 @@ public enum Resources {
     Resources(String name) {
         this.name = name;
     }
-    public String data() {
+
+    public String getName() {
         return name;
     }
 }
