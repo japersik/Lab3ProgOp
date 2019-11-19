@@ -2,20 +2,27 @@ package City;
 
 import java.util.Objects;
 
-public abstract class Being implements InfoI, ResourceMove {
+public abstract class Being extends Point implements InfoI, ResourceMove {
     protected Locality locality;
     protected String name;
     protected Resource myRes = new Resource();
     protected static final int maxResourceValues = 10;
+    protected static final double maxSpeed = 10.2;
 
     public Being(String name) {
         this(name, null);
     }
 
     public Being(String name, Locality p) {
+        super();
         this.name = name;
         this.locality = p;
+    }
 
+    public Being(String name, Locality p, double pointX, double pointY) {
+        super(pointX, pointY);
+        this.name = name;
+        this.locality = p;
     }
 
     public String getName() {
@@ -31,8 +38,33 @@ public abstract class Being implements InfoI, ResourceMove {
         if (locality == this.locality) {
             EventMessage.message(this.name + " находится в " + locality.getName(), 0);
         } else {
+            goToLocality(locality);
             this.locality = locality;
             EventMessage.message(this.name + " переместился в  " + locality.getName());
+        }
+    }
+
+    public void goToLocality(Locality finalLovality) {
+        double xDist = Math.abs(finalLovality.getPointX() - this.pointX);
+
+        double yDist = Math.abs(finalLovality.getPointY() - this.pointY);
+        double diagonal = Math.sqrt(xDist * xDist + yDist * yDist);
+        System.out.println(xDist);
+        System.out.println(yDist);
+        System.out.println(diagonal);
+
+        long time = System.currentTimeMillis();
+        while (finalLovality.getPointX() != this.getPointX() || finalLovality.getPointY() != this.getPointY()) {
+            if (System.currentTimeMillis() - time >= 500) {
+                if (Math.abs(finalLovality.getPointX() - this.getPointX()) >= (maxSpeed * xDist / diagonal)) {
+                    this.pointX = this.pointX + maxSpeed * (xDist / diagonal) * Math.signum(finalLovality.getPointX() - this.pointX);
+                } else this.pointX = finalLovality.getPointX();
+                if (Math.abs(finalLovality.getPointY() - this.getPointY()) >= (maxSpeed * yDist / diagonal)) {
+                    this.pointY = this.pointY + maxSpeed * (yDist / diagonal) * Math.signum(finalLovality.getPointY() - this.pointY);
+                } else this.pointY = finalLovality.getPointY();
+                System.out.println(this.PointToString());
+                time = System.currentTimeMillis();
+            }
         }
     }
 
@@ -112,7 +144,9 @@ public abstract class Being implements InfoI, ResourceMove {
                 "\nИмя: " + name +
                 "\nМестоположение: " + locality.getName() +
                 "\nИнвентарь: " + myRes.getType().getName() + " " + myRes.getValue() +
+                "\nКоординаты: " + PointToString() +
                 "\nhashCode: " + hashCode();
+
     }
 
     @Override

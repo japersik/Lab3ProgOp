@@ -2,7 +2,7 @@ package City;
 
 import java.util.Objects;
 
-public abstract class Locality {
+public abstract class Locality extends Point {
 
     protected String name ;
     protected String location;
@@ -13,10 +13,11 @@ public abstract class Locality {
     }
 
     public Locality(String name, TypeOfLocality type, String location) {
+        super();
         this.type = type;
         this.location = location;
         this.name = name;
-        EventMessage.message("Заложено новое место типа " + this.type.getName() + " с названием " + this.name + " в локации " + this.location);
+        EventMessage.message("Заложено новое место типа " + this.type.getName() + " с названием " + this.name + " " + PointToString() + " в локации " + this.location);
     }
 
 

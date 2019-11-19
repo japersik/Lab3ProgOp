@@ -2,18 +2,24 @@ package City;
 
 public class Wiseacre extends Being {
 
-    public Wiseacre(String name) {
-        this(name, null);
+    {
+        if (this.locality == null) {
+            EventMessage.message("В неизвестном месте с координатами " + this.PointToString() + " объявился новый старец " + this.name);
+        } else {
+            EventMessage.message("В месте " + this.locality.getName() + "с координатами " + this.PointToString() + " объявился новый старец " + this.name);
+        }
+    }
 
+    public Wiseacre(String name) {
+        super(name, null);
     }
 
     public Wiseacre(String name, Locality p) {
         super(name, p);
-        if (this.locality == null) {
-            EventMessage.message("В неизвестном месте объявился новый старец " + this.name);
-        } else {
-            EventMessage.message("В месте " + this.locality.getName() + " объявился новый старец " + this.name);
-        }
+    }
+
+    public Wiseacre(String name, Locality p, double x, double y) {
+        super(name, p, x, y);
     }
 
     public Worker CreatingWorkers(String nameOfWorker) {
