@@ -35,37 +35,40 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     }
 
     public void setLocality(Locality locality) {
-        if (locality == this.locality) {
+            this.locality = locality;
+    }
+
+    public void goToLocality(Locality finalLocality) {
+        if (finalLocality == this.locality) {
             EventMessage.message(this.name + " находится в " + locality.getName(), 0);
         } else {
-            goToLocality(locality);
-            this.locality = locality;
+            EventMessage.message(this.name + " начал движение в   " + finalLocality.getName());
+            goMove(finalLocality.getPointX(), finalLocality.getPointY());
+            this.locality = finalLocality;
             EventMessage.message(this.name + " переместился в  " + locality.getName());
         }
     }
 
-    public void goToLocality(Locality finalLovality) {
-        double xDist = Math.abs(finalLovality.getPointX() - this.pointX);
+    public void goMove(double goPointX, double goPointY) {
 
-        double yDist = Math.abs(finalLovality.getPointY() - this.pointY);
+        double xDist = Math.abs(goPointX - this.pointX);
+        double yDist = Math.abs(goPointY - this.pointY);
         double diagonal = Math.sqrt(xDist * xDist + yDist * yDist);
-        System.out.println(xDist);
-        System.out.println(yDist);
-        System.out.println(diagonal);
-
         long time = System.currentTimeMillis();
-        while (finalLovality.getPointX() != this.getPointX() || finalLovality.getPointY() != this.getPointY()) {
+        while (goPointX != this.getPointX() || goPointY != this.getPointY()) {
+
             if (System.currentTimeMillis() - time >= 500) {
-                if (Math.abs(finalLovality.getPointX() - this.getPointX()) >= (maxSpeed * xDist / diagonal)) {
-                    this.pointX = this.pointX + maxSpeed * (xDist / diagonal) * Math.signum(finalLovality.getPointX() - this.pointX);
-                } else this.pointX = finalLovality.getPointX();
-                if (Math.abs(finalLovality.getPointY() - this.getPointY()) >= (maxSpeed * yDist / diagonal)) {
-                    this.pointY = this.pointY + maxSpeed * (yDist / diagonal) * Math.signum(finalLovality.getPointY() - this.pointY);
-                } else this.pointY = finalLovality.getPointY();
-                System.out.println(this.PointToString());
+                if (Math.abs(goPointX - this.getPointX()) >= (maxSpeed * xDist / diagonal)) {
+                    this.pointX = this.pointX + maxSpeed * (xDist / diagonal) * Math.signum(goPointX - this.pointX);
+                } else this.pointX = goPointX;
+                if (Math.abs(goPointY - this.getPointY()) >= (maxSpeed * yDist / diagonal)) {
+                    this.pointY = this.pointY + maxSpeed * (yDist / diagonal) * Math.signum(goPointY - this.pointY);
+                } else this.pointY = goPointY;
+                System.out.println(this.name + "  " + this.PointToString());//Проверка координат
                 time = System.currentTimeMillis();
             }
         }
+
     }
 
     public Locality getLocality() {

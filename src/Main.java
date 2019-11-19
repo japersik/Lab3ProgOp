@@ -3,8 +3,11 @@ import City.Wiseacre;
 public class Main {
     public static void main(String[] args) {
         Wiseacre kaka = new Wiseacre("Хотабыч");
+        Wiseacre kaka2 = new Wiseacre("Хотабыч2");
         Town c2 = new Town("Старая-Антантида", "Море", 0, 100, 100);
-        kaka.setLocality(c2);
+
+        kaka2.goToLocality(c2);
+        kaka.goToLocality(c2);
 //        Town t1 = new Town("Старый город", "Поверхность");
 //        Wiseacre st1 = new Wiseacre("Наставник", t1);
 //        Wiseacre st2 = new Wiseacre("Ученик", t1);
