@@ -50,7 +50,7 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     }
 
     public void goMove(double goPointX, double goPointY) {
-
+        this.locality = null;
         double xDist = Math.abs(goPointX - this.pointX);
         double yDist = Math.abs(goPointY - this.pointY);
         double diagonal = Math.sqrt(xDist * xDist + yDist * yDist);
