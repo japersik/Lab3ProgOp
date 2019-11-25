@@ -14,23 +14,23 @@ public abstract class Point {
         this.pointY = pointY;
     }
 
-    public double getPointX() {
+    public final double getPointX() {
         return pointX;
     }
 
-    public void setPointX(double pointX) {
+    public final void setPointX(double pointX) {
         this.pointX = pointX;
     }
 
-    public double getPointY() {
+    public final double getPointY() {
         return pointY;
     }
 
-    public void setPointY(double pointY) {
+    public final void setPointY(double pointY) {
         this.pointY = pointY;
     }
 
-    public void setPosition(double pointX, double pointY) {
+    public final void setPosition(double pointX, double pointY) {
         this.pointX = pointX;
         this.pointY = pointY;
     }

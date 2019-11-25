@@ -95,7 +95,7 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     }
 
     public void giveResource(Town townLocality) {
-        this.setLocality(townLocality);
+        goToLocality(townLocality);
         if (getResValue() != 0) {
             townLocality.setResourceValue(myRes.getType(), townLocality.getResourceValue(myRes.getType()) + myRes.getValue());
             EventMessage.message(this.name + " отдёт " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName() + " в место " + townLocality.getName());
@@ -111,8 +111,9 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     }
 
     public void takeResource(Town townLocality, Resources typeOfResource, int value) {
+
         if (value > maxResourceValues) value = maxResourceValues;
-        this.setLocality(townLocality);
+        this.goToLocality(townLocality);
         if (this.myRes.getValue() == 0) {
             if (townLocality.getResourceValue(typeOfResource) >= value) {
                 this.myRes.setValue(value);

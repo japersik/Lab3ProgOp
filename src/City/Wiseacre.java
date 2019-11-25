@@ -15,20 +15,30 @@ public class Wiseacre extends Being {
     }
 
     public Wiseacre(String name, Locality p) {
-        super(name, p);
+        super(name, p, p.getPointX(), p.getPointY());
     }
 
-    public Wiseacre(String name, Locality p, double x, double y) {
-        super(name, p, x, y);
+    public Wiseacre(String name, double x, double y) {
+        super(name, null, x, y);
+    }
+
+    public Worker CreatingWorkers() {
+        return this.CreatingWorkers(null);
     }
 
     public Worker CreatingWorkers(String nameOfWorker) {
 
         if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 5) {
-            EventMessage.message(this.name + " создаёт штоггота " + nameOfWorker);
+            EventMessage.message(this.name + " создаёт штоггота");
             myRes.setValue(myRes.getValue() - 5);
-            return new Worker(this, nameOfWorker);
-
+            if (myRes.getValue() == 0) {
+                myRes.setType(Resources.NONE);
+            }
+            if (nameOfWorker == null) {
+                return new Worker(this);
+            } else {
+                return new Worker(this, nameOfWorker);
+            }
         } else {
             EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
             return null;
@@ -45,5 +55,4 @@ public class Wiseacre extends Being {
         }
     }
 }
-
 

@@ -1,18 +1,25 @@
 package City;
 
 public class Worker extends Being {
+    private static int number;
+    private Town home;
 
+    {
+        number = number + 1;
+        System.out.println("Появился Штоггот с именем " + this.name);
+    }
     public Worker(Wiseacre maker) {
-        this(maker, "Безымянный");
+        this(maker, "Безымянный Штоггот № " + number);
     }
 
     public Worker(Wiseacre maker, String nameOfWorker) {
-        super(nameOfWorker, maker.getLocality());
+        super(nameOfWorker, maker.getLocality(), maker.getPointX(), maker.pointY);
+
     }
 
     public void goMine(Mine mineLocality, Town townLocality) {
         EventMessage.message(this.name + " отправился на добычу ресурсов в  " + mineLocality.getName());
-        this.setLocality(mineLocality);
+        goToLocality(mineLocality);
         if (this.myRes.getValue() == 0) {
             if (mineLocality.getMineResValue() >= maxResourceValues) {
                 this.myRes.setValue(maxResourceValues);

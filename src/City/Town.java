@@ -7,6 +7,9 @@ public class Town extends Locality {
 
 
     private ArrayList<House> Houses = new ArrayList<>();
+    private ArrayList<Wiseacre> Wiseacres = new ArrayList<>();
+    private ArrayList<Worker> Workers = new ArrayList<>();
+
     private Resource myStone = new Resource(Resources.STONE);
     private Resource myProtoplasm = new Resource(Resources.PROTOPLASM);
     private Resource myCellMass = new Resource(Resources.CELLMASS);
