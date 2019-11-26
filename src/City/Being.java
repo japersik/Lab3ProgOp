@@ -35,17 +35,17 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     }
 
     public void setLocality(Locality locality) {
-            this.locality = locality;
+        this.locality = locality;
     }
 
     public void goToLocality(Locality finalLocality) {
         if (finalLocality == this.locality) {
             EventMessage.message(this.name + " находится в " + locality.getName(), 0);
         } else {
-            EventMessage.message(this.name + " начал движение в   " + finalLocality.getName());
+            EventMessage.message(this.name + " начал движение в пункт " + finalLocality.getName());
             goMove(finalLocality.getPointX(), finalLocality.getPointY());
             this.locality = finalLocality;
-            EventMessage.message(this.name + " переместился в  " + locality.getName());
+            EventMessage.message(this.name + " переместился в " + locality.getName());
         }
     }
 
@@ -69,6 +69,20 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
             }
         }
 
+    }
+
+    public void goToForAWalk() {
+        Locality hisLocality = this.locality;
+        EventMessage.message(this.name + " пошёл погулять");
+        goMove(Math.random() * 200 - 100, Math.random() * 200 - 100);
+        if (hisLocality != null) {
+            goToLocality(hisLocality);
+        }
+    }
+
+    public void Leave() {
+        EventMessage.message(this.name + " ушёл в неизвестном направлении");
+        goMove(Math.random() * 200 - 100, Math.random() * 200 - 100);
     }
 
     public Locality getLocality() {

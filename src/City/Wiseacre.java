@@ -28,7 +28,7 @@ public class Wiseacre extends Being {
 
     public Worker CreatingWorkers(String nameOfWorker) {
 
-        if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 5) {
+        if (myRes.getType() == Resources.CELLMASS & myRes.getValue() >= 5) {
             EventMessage.message(this.name + " создаёт штоггота");
             myRes.setValue(myRes.getValue() - 5);
             if (myRes.getValue() == 0) {
@@ -40,18 +40,30 @@ public class Wiseacre extends Being {
                 return new Worker(this, nameOfWorker);
             }
         } else {
-            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+            EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 клеточной массы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
             return null;
         }
 
     }
 
-    public void Building() {
+    public LuminousCreature CreatingLuminousCreature() {
+        if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 3) {
+            myRes.setValue(myRes.getValue() - 3);
+            return new LuminousCreature(this);
+        } else {
+            EventMessage.message(this.name + " не смог создать светящееся существо, т.к. не имеет нужных ресурсов(3 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+            return null;
+        }
+    }
+
+
+    public House Building() {
         if (myRes.getType() == Resources.STONE & myRes.getValue() >= 5) {
-            new House(this);
             myRes.setValue(myRes.getValue() - 5);
+            return new House(this);
         } else {
             EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+            return null;
         }
     }
 }

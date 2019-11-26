@@ -7,9 +7,7 @@ public class Town extends Locality {
 
 
     private ArrayList<House> Houses = new ArrayList<>();
-    private ArrayList<Wiseacre> Wiseacres = new ArrayList<>();
-    private ArrayList<Worker> Workers = new ArrayList<>();
-
+    private ArrayList<LuminousCreature> LuminousCreatures = new ArrayList<>();
     private Resource myStone = new Resource(Resources.STONE);
     private Resource myProtoplasm = new Resource(Resources.PROTOPLASM);
     private Resource myCellMass = new Resource(Resources.CELLMASS);
@@ -34,6 +32,9 @@ public class Town extends Locality {
         return Houses;
     }
 
+    public void addLuminousCreature(LuminousCreature luminousCreature) {
+        this.LuminousCreatures.add(luminousCreature);
+    }
 
     public int getResourceValue(Resources typeOfResource) {
         int value = 0;
@@ -63,6 +64,17 @@ public class Town extends Locality {
                 myProtoplasm.setValue(value);
                 break;
         }
+    }
+
+    public Resources getMinResType() {
+        Resources minType = Resources.STONE;
+        if (getResourceValue(Resources.STONE) > getResourceValue(Resources.PROTOPLASM)) {
+            minType = Resources.PROTOPLASM;
+        }
+        if (getResourceValue(minType) > getResourceValue(Resources.CELLMASS)) {
+            minType = Resources.CELLMASS;
+        }
+        return minType;
     }
 
     @Override

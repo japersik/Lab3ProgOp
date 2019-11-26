@@ -1,16 +1,17 @@
-import City.Mine;
-import City.Town;
-import City.Wiseacre;
-import City.World;
+import City.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         World mir = new World();
         mir.addWiseacres(new Wiseacre("Старый Старец"));
+        mir.addWiseacres(new Wiseacre("Старый Старец2"));
+        mir.addWiseacres(new Wiseacre("Старый Старец3 "));
         mir.addTowns(new Town("Новый город", "Моское дно", 0, 17, 0));
-        mir.addMines(new Mine("А"));
-        mir.addMines(new Mine("B"));
-        mir.addMines(new Mine("C"));
+        mir.addTowns(new Town("Новая Атлантида", "Моское дно", 0, 0, 10));
+        mir.addMines(new Mine("А", Resources.PROTOPLASM, 70, "Морское дно"));
+        mir.addMines(new Mine("B", Resources.CELLMASS, 60, "Морское дно"));
+        mir.go();
+//        mir.addMines(new Mine("C"));
 
 //
 //        mir.addTowns(kak);
@@ -20,7 +21,7 @@ public class Main {
 //
 //        System.out.println(mir.findRecourcesInTowns(kak, Resources.PROTOPLASM).getName() + mir.findRecourcesInTowns(kak, Resources.PROTOPLASM).getResourceValue(Resources.PROTOPLASM));
 //        System.out.println(mir.findRecourcesInTowns(kak, Resources.CELLMASS).getName() + mir.findRecourcesInTowns(kak, Resources.CELLMASS).getResourceValue(Resources.CELLMASS));
-        mir.go();
+
 //        Wiseacre kaka = new Wiseacre("Хотабыч");
 //        Wiseacre kaka2 = new Wiseacre("Хотабыч2");
 //        Town c2 = new Town("Старая-Антантида", "Море", 0, 100, 100);
