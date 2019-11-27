@@ -8,6 +8,9 @@ public class World {
     ArrayList<Wiseacre> Wiseacres = new ArrayList();
     ArrayList<Worker> Workers = new ArrayList();
     private boolean endingResources = false;
+    private boolean endingSTONE = false;
+    private boolean endingPROTOPLASM = false;
+    private boolean endingCELLMASS = false;
 
     public World() {
         System.out.println("Создан новый мир");
@@ -33,7 +36,10 @@ public class World {
             for (int i = 0; i < Workers.size(); i++) {
                 workersMoves(i);
             }
-
+            if (endingSTONE && endingResources && endingPROTOPLASM && endingCELLMASS) {
+                EventMessage.message("В мире были исчерпаны все ресурсы, всё что остаётся делать старцам - гулять или искать новое место жительства...Ведь больше им нечего делать. Счастья нет. Жизнь - боль. Мир-матрица. Всё предрешено...", 1);
+                break;
+            }
         }
     }
 
@@ -41,53 +47,68 @@ public class World {
 
 //        Runnable task = () -> {
 //            if (Wiseacres.get(index).status) {
-//                Wiseacres.get(index).status = false;
-        Locality hirLocality = Wiseacres.get(index).getLocality();
+//                while(true){
+        Locality hisLocality = Wiseacres.get(index).getLocality();
         double v1 = Math.random();
-        if (hirLocality != null && hirLocality.getType() == TypeOfLocality.TOWN) {
-            if (v1 > 0.85) {
-                LuminousCreature newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
-                if (newLuminousCreature != null) {
-                    ((Town) (Wiseacres.get(index).getLocality())).addLuminousCreature(newLuminousCreature);
-                } else if (findRecourcesInTowns((Town) hirLocality, Resources.PROTOPLASM, 3) != null) {
-                    if (findRecourcesInTowns((Town) hirLocality, Resources.PROTOPLASM, 3) != hirLocality)
-                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hirLocality, Resources.PROTOPLASM, 3), (Town) hirLocality, Resources.PROTOPLASM, 3);
-                    Wiseacres.get(index).takeResource((Town) hirLocality, Resources.PROTOPLASM, 3);
-                    Wiseacres.get(index).goToLocality(hirLocality);
-                    Wiseacres.get(index).CreatingLuminousCreature();
-                }
-            } else if (v1 > 0.5) {
+        if (hisLocality != null && hisLocality.getType() == TypeOfLocality.TOWN) {
+            if (v1 > 0.66 && !endingSTONE) {
                 House newHouse = Wiseacres.get(index).Building();
                 if (newHouse != null) {
                     ((Town) (Wiseacres.get(index).getLocality())).addHouses(newHouse);
-                } else if (findRecourcesInTowns((Town) hirLocality, Resources.STONE, 5) != null) {
-                    if (findRecourcesInTowns((Town) hirLocality, Resources.STONE, 5) != hirLocality)
-                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hirLocality, Resources.STONE, 5), (Town) hirLocality, Resources.STONE, 5);
-                    Wiseacres.get(index).takeResource((Town) hirLocality, Resources.STONE, 5);
-                    Wiseacres.get(index).goToLocality(hirLocality);
+                } else if (findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null) {
+                    if (findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != hisLocality)
+                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5), (Town) hisLocality, Resources.STONE, 5);
+                    Wiseacres.get(index).takeResource((Town) hisLocality, Resources.STONE, 5);
+                    Wiseacres.get(index).goToLocality(hisLocality);
                     newHouse = Wiseacres.get(index).Building();
-
                 }
-            } else if (v1 > 0.2) {
+                if (newHouse == null && endingResources) {
+                    endingSTONE = true;
+                }
+            } else if (v1 > 0.33 && !endingCELLMASS) {
                 Worker newWorker = Wiseacres.get(index).CreatingWorkers();
                 if (newWorker != null) {
                     Workers.add(newWorker);
-                } else if (findRecourcesInTowns((Town) hirLocality, Resources.CELLMASS, 5) != null) {
-                    if (findRecourcesInTowns((Town) hirLocality, Resources.CELLMASS, 5) != hirLocality)
-                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hirLocality, Resources.CELLMASS, 5), (Town) hirLocality, Resources.CELLMASS, 5);
-                    Wiseacres.get(index).takeResource((Town) hirLocality, Resources.CELLMASS, 5);
-                    Wiseacres.get(index).goToLocality(hirLocality);
+                } else if (findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) != null) {
+                    if (findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) != hisLocality)
+                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5), (Town) hisLocality, Resources.CELLMASS, 5);
+                    Wiseacres.get(index).takeResource((Town) hisLocality, Resources.CELLMASS, 5);
+                    Wiseacres.get(index).goToLocality(hisLocality);
                     newWorker = Wiseacres.get(index).CreatingWorkers();
-                    Workers.add(newWorker);
-//                    this.workersMoves(newWorker);
+                    if (newWorker != null) {
+                        Workers.add(newWorker);
+                    }
                 }
+                if (newWorker == null && endingResources) {
+                    endingCELLMASS = true;
+                }
+//                    this.workersMoves(newWorker);
+            } else if (v1 > 0.1 && !endingPROTOPLASM) {
+                LuminousCreature newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
+                if (newLuminousCreature != null) {
+                    ((Town) (Wiseacres.get(index).getLocality())).addLuminousCreature(newLuminousCreature);
+                } else if (findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) != null) {
+                    if (findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) != hisLocality)
+                        Wiseacres.get(index).resourceTransfer(findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3), (Town) hisLocality, Resources.PROTOPLASM, 3);
+                    Wiseacres.get(index).takeResource((Town) hisLocality, Resources.PROTOPLASM, 3);
+                    Wiseacres.get(index).goToLocality(hisLocality);
+                    newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
+
+                }
+                if (newLuminousCreature == null && endingResources) {
+                    endingPROTOPLASM = true;
+                }
+            } else if (v1 > 0.05) {
+                Wiseacres.get(index).goToForAWalk();
+            } else {
+                Wiseacres.get(index).Leave();
             }
         } else {
             Wiseacres.get(index).goToLocality(Towns.get((int) Math.floor(Math.random() * (Towns.size()))));
         }
 
 //            }
-//
+//            }
 //        };
 //        Thread thread = new Thread(task);
 //        thread.start();

@@ -57,7 +57,7 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
         long time = System.currentTimeMillis();
         while (goPointX != this.getPointX() || goPointY != this.getPointY()) {
 
-            if (System.currentTimeMillis() - time >= 500) {
+            if (System.currentTimeMillis() - time >= 1) {
                 if (Math.abs(goPointX - this.getPointX()) >= (maxSpeed * xDist / diagonal)) {
                     this.pointX = this.pointX + maxSpeed * (xDist / diagonal) * Math.signum(goPointX - this.pointX);
                 } else this.pointX = goPointX;
