@@ -49,6 +49,9 @@ public class Wiseacre extends Being {
     public LuminousCreature CreatingLuminousCreature() {
         if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 3) {
             myRes.setValue(myRes.getValue() - 3);
+            if (myRes.getValue() == 0) {
+                myRes.setType(Resources.NONE);
+            }
             return new LuminousCreature(this);
         } else {
             EventMessage.message(this.name + " не смог создать светящееся существо, т.к. не имеет нужных ресурсов(3 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
@@ -60,6 +63,9 @@ public class Wiseacre extends Being {
     public House Building() {
         if (myRes.getType() == Resources.STONE & myRes.getValue() >= 5) {
             myRes.setValue(myRes.getValue() - 5);
+            if (myRes.getValue() == 0) {
+                myRes.setType(Resources.NONE);
+            }
             return new House(this);
         } else {
             EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());

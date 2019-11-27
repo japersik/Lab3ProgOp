@@ -14,10 +14,12 @@ public class World {
 
     public World() {
         System.out.println("Создан новый мир");
-        Town oldTown = new Town("Старый город", "Морское дно", 27, 10, 60);
+        Town oldTown = new Town("Старый город", "Морское дно", 27, 50, 25);
         addTowns(oldTown);
         addWiseacres(new Wiseacre("Мастер", oldTown));
-        addMines(new Mine("Каменоломня", Resources.STONE, 100, "Глубокая глубина"));
+        addMines(new Mine("Каменоломня", Resources.STONE, 200, "Глубокая глубина"));
+        addMines(new Mine("Чудо-источник Протоплазмы", Resources.PROTOPLASM, 200, "Глубокая глубина"));
+        addMines(new Mine("Чудо-источник Клеточной массы", Resources.CELLMASS, 200, "Глубокая глубина"));
     }
 
     public void go() {
@@ -36,8 +38,9 @@ public class World {
             for (int i = 0; i < Workers.size(); i++) {
                 workersMoves(i);
             }
-            if (endingSTONE && endingResources && endingPROTOPLASM && endingCELLMASS) {
+            if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
                 EventMessage.message("В мире были исчерпаны все ресурсы, всё что остаётся делать старцам - гулять или искать новое место жительства...Ведь больше им нечего делать. Счастья нет. Жизнь - боль. Мир-матрица. Всё предрешено...", 1);
+                System.out.println("Информация о мире\n" + this);
                 break;
             }
         }
@@ -79,8 +82,9 @@ public class World {
                         Workers.add(newWorker);
                     }
                 }
-                if (newWorker == null && endingResources) {
+                if (newWorker == null && (endingResources || Workers.size() == 0)) {
                     endingCELLMASS = true;
+                    endingResources = true;
                 }
 //                    this.workersMoves(newWorker);
             } else if (v1 > 0.1 && !endingPROTOPLASM) {
@@ -202,7 +206,6 @@ public class World {
         return null;
     }
 
-
     public void addMines(Mine mine) {
         this.Mines.add(mine);
     }
@@ -214,4 +217,16 @@ public class World {
     public void addWiseacres(Wiseacre wiseacre) {
         this.Wiseacres.add(wiseacre);
     }
+
+    @Override
+    public String toString() {
+        return "Класс: " + getClass().getName() +
+                "\nКоличество городов:: " + Towns.size() +
+                "\nКоличество старцев: " + Wiseacres.size() +
+                "\nКоличество рабочих: " + Workers.size() +
+                "\nКоличество домов: " + House.getAmount() +
+                "\nКоличество светящихся существ: " + LuminousCreature.getAmount() +
+                "\nhashCode: " + hashCode();
+    }
+
 }
